@@ -18,3 +18,6 @@ Logar usando Discord
 Desafios mobile
 melhorar notificação
 autenticação
+
+Desafio servidor
+validação Zod javascript

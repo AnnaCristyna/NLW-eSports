@@ -13,7 +13,15 @@ const prisma = new PrismaClient({
 })
 
 app.get('/games', async (request, response) => {
-  const games = await prisma.game.findMany()
+  const games = await prisma.game.findMany({
+    include: {
+      _count: {
+        select: {
+          ads: true,
+        }
+      }
+    }
+  })
   return response.json(games);
 });
 
@@ -61,7 +69,7 @@ app.get('/games/:id/ads', async (request, response) => {
   return response.json(ads.map(ad => {
     return {
       ...ad,
-      weekdays: ad.weekDays.split(','),
+      weekDays: ad.weekDays.split(','),
       hourStart: convertMinutesToHourString(ad.hourStart),
       hourEnd: convertMinutesToHourString(ad.hourEnd),
     }
