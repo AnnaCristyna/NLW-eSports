@@ -6,7 +6,7 @@ css flex
 css all: 'unset'
 css gap
 
-Desafios
+Desafios web
 usar o select do radix
 testes unitários
 internacionalização
@@ -14,3 +14,7 @@ responsividade
 Keen-slider
 validação hook form
 Logar usando Discord
+
+Desafios mobile
+melhorar notificação
+autenticação
