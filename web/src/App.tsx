@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 // import { Carousel } from "./components/Carousel";
 // import { Banner } from "./components/Banner";
 import "./styles/main.css";
-import logoImg from "./assets/Logo.svg";
+import logoImg from "./assets/logo.svg";
 import { GameBanner } from "./components/GameBanner";
 import * as Dialog from "@radix-ui/react-dialog";
 import { CreateAdBanner } from "./components/CreateAdBanner";
@@ -26,7 +26,7 @@ function App() {
     axios('http://localhost:3333/games').then(response => {
       setGames(response.data)
     })
-  }, [])
+  }, []);
 
   return (
     <div className="max-w-[1344px] mx-auto flex flex-col items-center my-20">
@@ -49,61 +49,14 @@ function App() {
             )
           })
         }
-
-        <a href="" className="relative rounded-lg overflow-hidden">
-          <img src="/game-2.png" alt="" />
-
-          <div className="w-full pt-16 pb-4 px-4 bg-game-gradient absolute bottom-0 left-0 right-0">
-            <strong className="font-bold text-white block"></strong>
-            <span className="text-zinc-300 text-sm block"> anúncios</span>
-          </div>
-        </a>
-
-        <a href="" className="relative rounded-lg overflow-hidden">
-          <img src="/game-3.png" alt="" />
-
-          <div className="w-full pt-16 pb-4 px-4 bg-game-gradient absolute bottom-0 left-0 right-0">
-            <strong className="font-bold text-white block"></strong>
-            <span className="text-zinc-300 text-sm block"> anúncios</span>
-          </div>
-        </a>
-
-        <a href="" className="relative rounded-lg overflow-hidden">
-          <img src="/game-4.png" alt="" />
-
-          <div className="w-full pt-16 pb-4 px-4 bg-game-gradient absolute bottom-0 left-0 right-0">
-            <strong className="font-bold text-white block"></strong>
-            <span className="text-zinc-300 text-sm block"> anúncios</span>
-          </div>
-        </a>
-
-        <a href="" className="relative rounded-lg overflow-hidden">
-          <img src="/game-5.png" alt="" />
-
-          <div className="w-full pt-16 pb-4 px-4 bg-game-gradient absolute bottom-0 left-0 right-0">
-            <strong className="font-bold text-white block"></strong>
-            <span className="text-zinc-300 text-sm block"> anúncios</span>
-          </div>
-        </a>
-
-        <a href="" className="relative rounded-lg overflow-hidden">
-          <img src="/game-6.png" alt="" />
-
-          <div className="w-full pt-16 pb-4 px-4 bg-game-gradient absolute bottom-0 left-0 right-0">
-            <strong className="font-bold text-white block"></strong>
-            <span className="text-zinc-300 text-sm block"> anúncios</span>
-          </div>
-        </a>
       </div>
 
       <Dialog.Root>
         <CreateAdBanner />
-
-        <CreateAdModal />
-        
+        <CreateAdModal games={games}/>
       </Dialog.Root>
     </ div>
   )
 }
 
-export default App
+export default App;

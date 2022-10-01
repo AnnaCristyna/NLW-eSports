@@ -6,40 +6,42 @@ import * as ToggleGroup from "@radix-ui/react-toggle-group";
 import { FormEvent, useEffect, useState } from "react";
 import axios from 'axios';
 
-interface Game {
-  id: string;
-  title: string;
+interface ModalProps {
+  games: Array<
+    {
+      id: string;
+      title: string;
+      bannerUrl: string;
+      _count: {
+        ads: number;
+      }
+    }>
 }
 
-export function CreateAdModal() {
-  const [games, setGames] = useState<Game[]>([]);
+export function CreateAdModal(props:ModalProps) {
   const [weekDays, setWeekDays] = useState<string[]>(['1'])
   const [useVoiceChannel, setUseVoiceChannel] = useState(false);
 
-  useEffect(() => {
-    axios('http://localhost:3333/games').then(response => {
-      setGames(response.data)
-    })
-  }, [])
-
   async function handleCreateAd(event: FormEvent) {
     event.preventDefault();
+    debugger;
 
     const formData = new FormData(event.target as HTMLFormElement)
     const data = Object.fromEntries(formData)
 
     if(!data.name) return;
 
+    const teste = {
+      "name": data.name,
+      "yearsPlaying": Number(data.yearsPlaying),
+      "discord": data.discord,
+      "weekDays": weekDays.map(Number),
+      "hourStart": data.hourStart,
+      "hourEnd": data.hourEnd,
+      "useVoiceChannel": data.useVoiceChannel,
+    };
     try {
-      await axios.post(`http://localhost:3333/games/${data.game}/ads`, {
-        "name": data.name,
-        "yearsPlaying": Number(data.yeasPlaying),
-        "discord": data.discord,
-        "weekDays": weekDays.map(Number),
-        "hourStart": data.hourStart,
-        "hourEnd": data.hourEnd,
-        "useVoiceChannel": data.useVoiceChannel,
-      })
+      await axios.post(`http://localhost:3333/games/${data.game}/ads`, teste)
 
       alert('Anúncio criado com sucesso!')
     } catch (error) {
@@ -70,8 +72,8 @@ export function CreateAdModal() {
             Selecione o game que deseja jogar
             </option>
 
-            { games.map(game => {
-              return <option key={game.id} value={game.id}>{game.id}</option>
+            { props.games.map(game => {
+              return <option key={game.id} value={game.id}>{game.title}</option>
             })}
           </select>
         </div>
